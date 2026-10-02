@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>SAMARTH</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+
+        <a class="brand" href="#" onclick="scrollToTop();return false;">
+            <span class="brand-mark"><img src="{{ url_for('static', filename='images/TopLogo.jpeg') }}" alt="SAMARTH"></span>  
+            <span class="brand-name" data-i18n="brandbadge.title">  SAMARTH</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#home" data-i18n="nav.home" onclick="window.scrollTo({top:30,behavior:'smooth'});return false;">Home</a>
+            <a href="#profile" data-i18n="nav.findSchemes">Find Schemes</a>
+            <a href="#recommendations" data-i18n="nav.recommendations">AI Recommendations</a>
+            <a href="#schemes" data-i18n="nav.schemes">Available Schemes</a>
+            <a href="#calculator" data-i18n="nav.calculator">Calculator</a>
+            <a href="#partners" data-i18n="nav.partner">Partner</a>
+            <a href="#impact" data-i18n="nav.impact">Social Impact</a>
+            <a href="#faq" data-i18n="nav.faq">FAQ</a>
+            <a href="#about" data-i18n="nav.about">About Us</a>
+        </div>
+
+        <div class="nav-actions">
+
+            <div class="lang-switch">
+
+                <button
+                    id="langToggle"
+                    class="lang-toggle"
+                    type="button"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    title="Change language"
+                >
+                    <span id="langToggleLabel">EN</span>
+                </button>
+
+                <ul id="langMenu" class="lang-menu hidden" role="listbox">
+                    <li class="lang-menu-search-wrap">
+                        <input
+                            type="text"
+                            id="langMenuSearch"
+                            class="lang-menu-search"
+                            placeholder="Search language..."
+                            autocomplete="off"
+                        >
+                    </li>
+                    <li role="option" data-lang="en" data-lang-name="English" aria-selected="true">English</li>
+                    <li role="option" data-lang="hi" data-lang-name="Hindi" aria-selected="false">हिन्दी</li>
+                    <li role="option" data-lang="as" data-lang-name="Assamese" aria-selected="false">অসমীয়া</li>
+                    <li role="option" data-lang="bn" data-lang-name="Bengali" aria-selected="false">বাংলা</li>
+                    <li role="option" data-lang="brx" data-lang-name="Bodo" aria-selected="false">बड़ो</li>
+                    <li role="option" data-lang="doi" data-lang-name="Dogri" aria-selected="false">डोगरी</li>
+                    <li role="option" data-lang="gu" data-lang-name="Gujarati" aria-selected="false">ગુજરાતી</li>
+                    <li role="option" data-lang="kn" data-lang-name="Kannada" aria-selected="false">ಕನ್ನಡ</li>
+                    <li role="option" data-lang="ks" data-lang-name="Kashmiri" aria-selected="false">کٲشُر</li>
+                    <li role="option" data-lang="kok" data-lang-name="Konkani" aria-selected="false">कोंकणी</li>
+                    <li role="option" data-lang="mai" data-lang-name="Maithili" aria-selected="false">मैथिली</li>
+                    <li role="option" data-lang="ml" data-lang-name="Malayalam" aria-selected="false">മലയാളം</li>
+                    <li role="option" data-lang="mni" data-lang-name="Manipuri" aria-selected="false">ꯃꯩꯇꯩꯂꯣꯟ</li>
+                    <li role="option" data-lang="mr" data-lang-name="Marathi" aria-selected="false">मराठी</li>
+                    <li role="option" data-lang="ne" data-lang-name="Nepali" aria-selected="false">नेपाली</li>
+                    <li role="option" data-lang="or" data-lang-name="Odia" aria-selected="false">ଓଡ଼ିଆ</li>
+                    <li role="option" data-lang="pa" data-lang-name="Punjabi" aria-selected="false">ਪੰਜਾਬੀ</li>
+                    <li role="option" data-lang="sa" data-lang-name="Sanskrit" aria-selected="false">संस्कृतम्</li>
+                    <li role="option" data-lang="sat" data-lang-name="Santali" aria-selected="false">ᱥᱟᱱᱛᱟᱲᱤ</li>
+                    <li role="option" data-lang="sd" data-lang-name="Sindhi" aria-selected="false">سنڌي</li>
+                    <li role="option" data-lang="ta" data-lang-name="Tamil" aria-selected="false">தமிழ்</li>
+                    <li role="option" data-lang="te" data-lang-name="Telugu" aria-selected="false">తెలుగు</li>
+                    <li role="option" data-lang="ur" data-lang-name="Urdu" aria-selected="false">اردو</li>
+                </ul>
+
+            </div>
+
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+                type="button"
+                aria-label="Toggle dark mode"
+                title="Toggle dark mode"
+            >
+                <span id="themeIcon">☾</span>
+            </button>
+
+            <button
+                class="refresh"
+                type="button"
+                onclick="refreshData()"
+                data-i18n="nav.datarefresher"
+            >
+                ↻ Refresh Data
+            </button>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<main id="home">
+
+    <section
+        class="home home-section photo-section"
+        data-photo="{{ url_for('static', filename='images/HomeBackground.jpeg') }}"
+    >
+
+        
+        <div class="container home-grid">
+
+            <div>
+
+                <span class="badge">
+                    <i></i> <span data-i18n="hero.badge">AI - POWERED GOVERNMENT SCHEME MATCHING</span>
+                </span>
+
+                <h1 data-i18n-html="hero.title">
+                    Find The Right <span>FINANCIAL SUPPORT</span> For Your <span>JOURNEY</span>
+                </h1>
+
+                <p data-i18n="hero.subtitle">
+                    SAMARTH Connects Your PROFILE, FINANCIAL REQUIREMENTS
+                    And GOALS With Suitable GOVERNMENT SCHEMES For MARGINALIZED
+                    ENTREPRENEUR.
+                </p>
+
+                <div class="actions">
+
+                    <button
+                        class="primary"
+                        data-i18n="hero.ctaPrimary"
+                        onclick="scrollToSection('profile')"
+                    >
+                        Find My Scheme
+                    </button>
+
+                    <button
+                        class="secondary"
+                        data-i18n="hero.ctaSecondary"
+                        onclick="scrollToSection('schemes')"
+                    >
+                        Explore Schemes
+                    </button>
+
+                </div>
+
+                <div class="ticks">
+                    <span data-i18n="hero.tick1">✓ Government Sources</span>
+                    <span data-i18n="hero.tick2">✓ AI - Based Matching</span>
+                    <span data-i18n="hero.tick3">✓ Financial Calculator</span>
+                </div>
+
+            </div>
+
+            <div class="home-panel">
+
+                <div class="panel-top">
+                    <span data-i18n="hero.inteligence">LIVE SCHEME INTELLIGENCE</span>
+                    <em data-i18n="hero.connectivity">● CONNECTED</em>
+                </div>
+
+                <div class="samarth-logo-display">
+
+                    <img
+                        src="{{ url_for('static', filename='images/HeroLogo.png') }}"
+                        alt="SAMARTH"
+                    >
+
+                </div>
+
+                <div class="panel-stats">
+
+                    <div>
+                        <b id="heroSchemeCount">—</b>
+                        <small data-i18n="stat.schemes">Schemes</small>
+                    </div>
+
+                    <div>
+                        <b data-i18n="stat.aimatch">AI</b>
+                        <small data-i18n="stat.matching">Matching</small>
+                    </div>
+
+                    <div>
+                        <b data-i18n="stat.ailive">LIVE</b>
+                        <small data-i18n="stat.sources">Sources</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        
+        <div class="stats home-stats">
+
+            <div class="container stats-grid">
+
+                <div class="stat">
+                    <span>◈</span>
+                    <div>
+                        <b id="statSchemes">—</b>
+                        <small data-i18n="stat.availableSchemes">Available Schemes</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span>₹</span>
+                    <div>
+                        <b id="statIncome">₹5L</b>
+                        <small data-i18n="stat.incomeBenchmark">Income Benchmark</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span>⌁</span>
+                    <div>
+                        <b id="statPartners">—</b>
+                        <small data-i18n="stat.channelPartners">Channel Partners</small>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span>↻</span>
+                    <div>
+                        <b id="statLastSync">—</b>
+                        <small data-i18n="stat.lastSync">Last Sync</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        
+        <div class="sync home-sync">
+
+            <div class="container">
+
+                <div class="sync-card">
+
+                    <div>
+                        <strong data-i18n="sync.title">Government Data Synchronization</strong>
+
+                        <p id="syncMessage" data-i18n="sync.checking">
+                            Checking available government sources...
+                        </p>
+                    </div>
+
+                    <div class="sync-right">
+
+                        <span id="syncStatus">CHECKING</span>
+
+                        <button
+                            type="button"
+                            data-i18n="sync.button"
+                            onclick="refreshData()"
+                        >
+                            ↻ Sync Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section photo-section"
+        id="profile"
+        data-photo="{{ url_for('static', filename='images/SchemesBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="profile.kicker">01 / SMART MATCHING</label>
+
+                <h2 data-i18n-html="profile.title">
+                    Tell Us About <span>YOUR REQUIREMENTS</span>
+                </h2>
+
+                <p data-i18n="profile.subtitle">
+                    Enter your basic details and SAMARTH will rank the
+                    available schemes based on your profile.
+                </p>
+
+            </div>
+
+
+            <form id="profileForm" class="card form-card">
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="category" data-i18n="form.category">
+                            Applicant Category
+                        </label>
+
+                        <select id="category" class="enhanced-select">
+                            <option value="" data-i18n="opt.category.select">Select Category</option>
+                            <option value="SC" data-i18n="opt.category.sc">Scheduled Caste (SC)</option>
+                            <option value="ST" data-i18n="opt.category.st">Scheduled Tribe (ST)</option>
+                            <option value="OBC" data-i18n="opt.category.obc">Other Backward Classes (OBC)</option>
+                            <option value="Minority" data-i18n="opt.category.minority">Minority Community</option>
+                            <option value="Person with Disability" data-i18n="opt.category.pwd">Person with Disability</option>
+                            <option value="Senior Citizen" data-i18n="opt.category.senior">Senior Citizen</option>
+                            <option value="Student" data-i18n="opt.category.student">Student / Youth</option>
+                            <option value="Other" data-i18n="opt.other">Other</option>
+                        </select>
+
+                        <input
+                            id="categoryOther"
+                            class="other-input hidden"
+                            type="text"
+                            placeholder="Enter applicant category"
+                            data-i18n-placeholder="placeholder.categoryOther"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="familyIncome" data-i18n="form.familyIncome">
+                            Annual Family Income
+                        </label>
+
+                        <select id="familyIncome" class="enhanced-select" required>
+                            <option value="" data-i18n="opt.income.select">Select Annual Family Income</option>
+                            <option value="50000" data-i18n="opt.income.b1">Up to ₹50,000</option>
+                            <option value="100000" data-i18n="opt.income.b2">₹50,001 – ₹1 Lakh</option>
+                            <option value="250000" data-i18n="opt.income.b3">₹1 Lakh – ₹2.5 Lakh</option>
+                            <option value="500000" data-i18n="opt.income.b4">₹2.5 Lakh – ₹5 Lakh</option>
+                            <option value="1000000" data-i18n="opt.income.b5">₹5 Lakh – ₹10 Lakh</option>
+                            <option value="2500000" data-i18n="opt.income.b6">₹10 Lakh – ₹25 Lakh</option>
+                            <option value="5000000" data-i18n="opt.income.b7">Above ₹25 Lakh</option>
+                            <option value="Other" data-i18n="opt.other">Other</option>
+                        </select>
+
+                        <div id="familyIncomeOtherWrap" class="other-wrap hidden">
+
+                            <div class="input-prefix">
+                                <span>₹</span>
+
+                                <input
+                                    id="familyIncomeOther"
+                                    type="number"
+                                    min="0"
+                                    placeholder="Enter annual family income"
+                                    data-i18n-placeholder="placeholder.familyIncomeOther"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="requirementType" data-i18n="form.requirementType">
+                            Requirement Type
+                        </label>
+
+                        <select id="requirementType" class="enhanced-select">
+                            <option value="" data-i18n="opt.requirement.select">Select Requirement Type</option>
+                            <option value="business" data-i18n="opt.requirement.business">Business / Entrepreneurship</option>
+                            <option value="micro finance" data-i18n="opt.requirement.microFinance">Micro Finance</option>
+                            <option value="term loan" data-i18n="opt.requirement.termLoan">Term Loan</option>
+                            <option value="education" data-i18n="opt.requirement.education">Education / Higher Education</option>
+                            <option value="agriculture" data-i18n="opt.requirement.agriculture">Agriculture & Allied Activities</option>
+                            <option value="skill development" data-i18n="opt.requirement.skillDevelopment">Skill Development / Training</option>
+                            <option value="employment" data-i18n="opt.requirement.employment">Employment / Livelihood</option>
+                            <option value="housing" data-i18n="opt.requirement.housing">Housing</option>
+                            <option value="healthcare" data-i18n="opt.requirement.healthcare">Health / Medical Assistance</option>
+                            <option value="scholarship" data-i18n="opt.requirement.scholarship">Scholarship / Financial Aid</option>
+                            <option value="social security" data-i18n="opt.requirement.socialSecurity">Social Security / Welfare</option>
+                            <option value="financial inclusion" data-i18n="opt.requirement.financialInclusion">Financial Inclusion</option>
+                            <option value="startup" data-i18n="opt.requirement.startup">Startup / Innovation</option>
+                            <option value="Other" data-i18n="opt.other">Other</option>
+                        </select>
+
+                        <input
+                            id="requirementOther"
+                            class="other-input hidden"
+                            type="text"
+                            placeholder="Enter requirement type"
+                            data-i18n-placeholder="placeholder.requirementOther"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="projectCost" data-i18n="form.projectCost">
+                            Estimated Project / Course Cost
+                        </label>
+
+                        <select id="projectCost" class="enhanced-select" required>
+                            <option value="" data-i18n="opt.cost.select">Select Estimated Cost</option>
+                            <option value="50000" data-i18n="opt.cost.b1">Up to ₹50,000</option>
+                            <option value="100000" data-i18n="opt.cost.b2">₹50,001 – ₹1 Lakh</option>
+                            <option value="250000" data-i18n="opt.cost.b3">₹1 Lakh – ₹2.5 Lakh</option>
+                            <option value="500000" data-i18n="opt.cost.b4">₹2.5 Lakh – ₹5 Lakh</option>
+                            <option value="1000000" data-i18n="opt.cost.b5">₹5 Lakh – ₹10 Lakh</option>
+                            <option value="2500000" data-i18n="opt.cost.b6">₹10 Lakh – ₹25 Lakh</option>
+                            <option value="5000000" data-i18n="opt.cost.b7">₹25 Lakh – ₹50 Lakh</option>
+                            <option value="Other" data-i18n="opt.other">Other</option>
+                        </select>
+
+                        <div id="projectCostOtherWrap" class="other-wrap hidden">
+
+                            <div class="input-prefix">
+                                <span>₹</span>
+
+                                <input
+                                    id="projectCostOther"
+                                    type="number"
+                                    min="0"
+                                    placeholder="Enter estimated cost"
+                                    data-i18n-placeholder="placeholder.projectCostOther"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field check">
+
+                        <label>
+
+                            <input
+                                id="educationRequired"
+                                type="checkbox"
+                            >
+
+                            <span data-i18n="form.educationRequired">Education requirement</span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="educationStatus" data-i18n="form.educationStatus">
+                            Education Status
+                        </label>
+
+                        <select id="educationStatus">
+
+                            <option value="" data-i18n="opt.eduStatus.na">
+                                Not applicable
+                            </option>
+
+                            <option value="student" data-i18n="opt.eduStatus.student">
+                                Student
+                            </option>
+
+                            <option value="graduate" data-i18n="opt.eduStatus.graduate">
+                                Graduate
+                            </option>
+
+                            <option value="postgraduate" data-i18n="opt.eduStatus.postgraduate">
+                                Postgraduate
+                            </option>
+
+                            <option value="doctoral" data-i18n="opt.eduStatus.doctoral">
+                                Doctoral
+                            </option>
+
+                            <option value="Other" data-i18n="opt.other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <input
+                            id="educationStatusOther"
+                            class="other-input hidden"
+                            type="text"
+                            placeholder="Enter education status"
+                            data-i18n-placeholder="placeholder.educationStatusOther"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="courseField" data-i18n="form.courseField">
+                            Course / Field
+                        </label>
+
+                        <select id="courseField" class="enhanced-select">
+
+                            <option value="" data-i18n="opt.course.select">Select Course / Field</option>
+                            <option value="Engineering" data-i18n="opt.course.engineering">Engineering</option>
+                            <option value="Computer Science / IT" data-i18n="opt.course.cs">Computer Science / IT</option>
+                            <option value="Artificial Intelligence / Machine Learning" data-i18n="opt.course.ai">Artificial Intelligence / Machine Learning</option>
+                            <option value="Medical" data-i18n="opt.course.medical">Medical / Medicine</option>
+                            <option value="Dental" data-i18n="opt.course.dental">Dental</option>
+                            <option value="Pharmacy" data-i18n="opt.course.pharmacy">Pharmacy</option>
+                            <option value="Nursing" data-i18n="opt.course.nursing">Nursing</option>
+                            <option value="Management / MBA" data-i18n="opt.course.management">Management / MBA</option>
+                            <option value="Commerce / Finance" data-i18n="opt.course.commerce">Commerce / Finance</option>
+                            <option value="Law" data-i18n="opt.course.law">Law</option>
+                            <option value="Architecture" data-i18n="opt.course.architecture">Architecture</option>
+                            <option value="Agriculture" data-i18n="opt.course.agriculture">Agriculture</option>
+                            <option value="Veterinary Science" data-i18n="opt.course.veterinary">Veterinary Science</option>
+                            <option value="Education / Teaching" data-i18n="opt.course.education">Education / Teaching</option>
+                            <option value="Science" data-i18n="opt.course.science">Science</option>
+                            <option value="Arts / Humanities" data-i18n="opt.course.arts">Arts / Humanities</option>
+                            <option value="Vocational / Skill Training" data-i18n="opt.course.vocational">Vocational / Skill Training</option>
+                            <option value="Other" data-i18n="opt.other">Other</option>
+
+                        </select>
+
+                        <input
+                            id="courseFieldOther"
+                            class="other-input hidden"
+                            type="text"
+                            placeholder="Enter course / field"
+                            data-i18n-placeholder="placeholder.courseFieldOther"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="location" data-i18n="form.location">
+                            Location
+                        </label>
+
+                        <div class="location-selects">
+
+                            <div class="location-search-field">
+
+                                <input
+                                    id="state"
+                                    list="stateOptions"
+                                    placeholder="Search State / UT"
+                                    data-i18n-placeholder="placeholder.state"
+                                    autocomplete="off"
+                                >
+
+                                <datalist id="stateOptions">
+                                    <option value="Andhra Pradesh">
+                                    <option value="Arunachal Pradesh">
+                                    <option value="Assam">
+                                    <option value="Bihar">
+                                    <option value="Chhattisgarh">
+                                    <option value="Goa">
+                                    <option value="Gujarat">
+                                    <option value="Haryana">
+                                    <option value="Himachal Pradesh">
+                                    <option value="Jharkhand">
+                                    <option value="Karnataka">
+                                    <option value="Kerala">
+                                    <option value="Madhya Pradesh">
+                                    <option value="Maharashtra">
+                                    <option value="Manipur">
+                                    <option value="Meghalaya">
+                                    <option value="Mizoram">
+                                    <option value="Nagaland">
+                                    <option value="Odisha">
+                                    <option value="Punjab">
+                                    <option value="Rajasthan">
+                                    <option value="Sikkim">
+                                    <option value="Tamil Nadu">
+                                    <option value="Telangana">
+                                    <option value="Tripura">
+                                    <option value="Uttar Pradesh">
+                                    <option value="Uttarakhand">
+                                    <option value="West Bengal">
+                                    <option value="Andaman and Nicobar Islands">
+                                    <option value="Chandigarh">
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">
+                                    <option value="Delhi">
+                                    <option value="Jammu and Kashmir">
+                                    <option value="Ladakh">
+                                    <option value="Lakshadweep">
+                                    <option value="Puducherry">
+                                </datalist>
+
+                            </div>
+
+
+                            <div class="location-search-field">
+
+                                <input
+                                    id="cityDistrict"
+                                    list="cityDistrictOptions"
+                                    placeholder="Select State First"
+                                    autocomplete="off"
+                                    disabled
+                                >
+
+                                <datalist id="cityDistrictOptions"></datalist>
+
+                            </div>
+
+                        </div>
+
+                        <input id="location" type="hidden">
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="purpose" data-i18n="form.purpose">
+                            Purpose
+                        </label>
+
+                        <textarea
+                            id="purpose"
+                            placeholder="Briefly describe what the funding will be used for..."
+                            data-i18n-placeholder="placeholder.purpose"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        class="primary"
+                        type="submit"
+                        data-i18n="form.submit"
+                    >
+                        Generate Recommendations
+                    </button>
+
+                    <button
+                        class="secondary"
+                        type="reset"
+                        data-i18n="form.clear"
+                        onclick="clearRecommendations()"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section alt photo-section"
+        id="recommendations"
+        data-photo="{{ url_for('static', filename='images/RecommendSchemesBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="rec.kicker">02 / AI RECOMMENDATIONS</label>
+
+                <h2 data-i18n-html="rec.title">
+                    Your <span>BEST MATCHES</span>
+                </h2>
+
+                <p data-i18n="rec.subtitle">
+                    Results are ranked using eligibility checks and profile similarity.
+                </p>
+
+            </div>
+
+            <div
+                id="recommendationsContainer"
+                class="scheme-grid"
+            >
+
+                <div class="empty">
+                    Submit your profile to see recommendations.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section photo-section"
+        id="schemes"
+        data-photo="{{ url_for('static', filename='images/AvailableSchemeBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="schemes.kicker">03 / AVAILABLE SCHEMES</label>
+
+                <h2 data-i18n-html="schemes.title">
+                    Explore <span>GOVERNMENT SUPPORT</span>
+                </h2>
+
+                <p data-i18n="schemes.subtitle">
+                    Click any scheme card to view its complete details
+                    without leaving this page.
+                </p>
+
+            </div>
+
+
+            <div class="controls">
+
+                <input
+                    id="schemeSearch"
+                    type="search"
+                    placeholder="Search Schemes..."
+                    data-i18n-placeholder="schemes.searchPlaceholder"
+                    oninput="filterSchemes()"
+                >
+
+                <select
+                    id="schemeCategoryFilter"
+                    onchange="filterSchemes()"
+                >
+
+                    <option value="" data-i18n="schemes.filterAllCategories">
+                        All Categories
+                    </option>
+
+                    <option value="business" data-i18n="opt.requirement.business">
+                        Business / Entrepreneurship
+                    </option>
+
+                    <option value="micro finance" data-i18n="opt.requirement.microFinance">
+                        Micro Finance
+                    </option>
+
+                    <option value="term loan" data-i18n="opt.requirement.termLoan">
+                        Term Loan
+                    </option>
+
+                    <option value="education" data-i18n="opt.requirement.education">
+                        Education / Higher Education
+                    </option>
+
+                    <option value="agriculture" data-i18n="opt.requirement.agriculture">
+                        Agriculture & Allied Activities
+                    </option>
+
+                    <option value="skill development" data-i18n="opt.requirement.skillDevelopment">
+                        Skill Development / Training
+                    </option>
+
+                    <option value="employment" data-i18n="opt.requirement.employment">
+                        Employment / Livelihood
+                    </option>
+
+                    <option value="housing" data-i18n="opt.requirement.housing">
+                        Housing
+                    </option>
+
+                    <option value="healthcare" data-i18n="opt.requirement.healthcare">
+                        Health / Medical Assistance
+                    </option>
+
+                    <option value="scholarship" data-i18n="opt.requirement.scholarship">
+                        Scholarship / Financial Aid
+                    </option>
+
+                    <option value="social security" data-i18n="opt.requirement.socialSecurity">
+                        Social Security / Welfare
+                    </option>
+
+                    <option value="financial inclusion" data-i18n="opt.requirement.financialInclusion">
+                        Financial Inclusion
+                    </option>
+
+                    <option value="startup" data-i18n="opt.requirement.startup">
+                        Startup / Innovation
+                    </option>
+
+                    <option value="Other" data-i18n="opt.other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="schemeStatusFilter"
+                    onchange="filterSchemes()"
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="LIVE_VERIFIED">
+                        Live Verified
+                    </option>
+
+                    <option value="LIVE_INCOMPLETE">
+                        Live / Source Backed
+                    </option>
+
+                    <option value="NEEDS_REVIEW">
+                        Needs Review
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="schemesContainer"
+                class="scheme-grid"
+            >
+
+                <div class="empty">
+
+                    <span class="spinner"></span>
+
+                    <p>
+                        Loading Government Schemes...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section alt photo-section"
+        id="calculator"
+        data-photo="{{ url_for('static', filename='images/EMIBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="calc.kicker">04 / FINANCIAL CALCULATOR</label>
+
+                <h2 data-i18n-html="calc.title">
+                    Understand Your <span>REPAYMENT</span>
+                </h2>
+
+                <p data-i18n="calc.subtitle">
+                    Select a scheme and estimate your monthly EMI and total repayment.
+                </p>
+
+            </div>
+
+
+            <div class="card calculator">
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="calculatorScheme">
+                            Scheme
+                        </label>
+
+                        <select id="calculatorScheme">
+
+                            <option value="">
+                                Select a scheme
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="loanAmount">
+                            Loan Amount
+                        </label>
+
+                        <div class="number-stepper">
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-minus"
+                                data-stepper-target="loanAmount"
+                                aria-label="Decrease loan amount"
+                            >−</button>
+
+                            <div class="input-prefix">
+
+                                <span>₹</span>
+
+                                <input
+                                    id="loanAmount"
+                                    type="number"
+                                    min="1000"
+                                    placeholder="Loan amount"
+                                >
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-plus"
+                                data-stepper-target="loanAmount"
+                                aria-label="Increase loan amount"
+                            >+</button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="interestRate">
+                            Interest Rate (%)
+                        </label>
+
+                        <div class="number-stepper">
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-minus"
+                                data-stepper-target="interestRate"
+                                aria-label="Decrease interest rate"
+                            >−</button>
+
+                            <input
+                                id="interestRate"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="Interest rate"
+                            >
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-plus"
+                                data-stepper-target="interestRate"
+                                aria-label="Increase interest rate"
+                            >+</button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="tenureYears">
+                            Repayment Period (Years)
+                        </label>
+
+                        <div class="number-stepper">
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-minus"
+                                data-stepper-target="tenureYears"
+                                aria-label="Decrease repayment period"
+                            >−</button>
+
+                            <input
+                                id="tenureYears"
+                                type="number"
+                                min="0.1"
+                                step="0.1"
+                                placeholder="Years"
+                            >
+
+                            <button
+                                type="button"
+                                class="stepper-btn stepper-plus"
+                                data-stepper-target="tenureYears"
+                                aria-label="Increase repayment period"
+                            >+</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary"
+                    type="button"
+                    onclick="calculateEMI()"
+                >
+                    Calculate EMI
+                </button>
+
+
+                <div
+                    id="calculatorResult"
+                    class="result hidden"
+                >
+
+                    <div>
+
+                        <small>
+                            Estimated Monthly EMI
+                        </small>
+
+                        <strong id="emiValue">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            Principal
+                        </small>
+
+                        <b id="resultPrincipal">
+                            —
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            Interest Rate
+                        </small>
+
+                        <b id="resultRate">
+                            —
+                        </b>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            Total Repayment
+                        </small>
+
+                        <b id="resultTotal">
+                            —
+                        </b>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section photo-section"
+        id="partners"
+        data-photo="{{ url_for('static', filename='images/PartnerBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="partners.kicker">05 / CHANNEL PARTNERS</label>
+
+                <h2 data-i18n-html="partners.title">
+                    Find A Nearby <span>PARTNER</span>
+                </h2>
+
+                <p data-i18n="partners.subtitle">
+                    Use your location to find available channel partners
+                    from the partner data.
+                </p>
+
+            </div>
+
+
+            <div class="location-card">
+
+                <div>
+
+                    <b>
+                        Location - based partner routing
+                    </b>
+
+                    <p id="locationStatus">
+                        Your location has not been requested.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary"
+                    type="button"
+                    onclick="findNearbyPartners()"
+                >
+                    Find Nearby Partners
+                </button>
+
+            </div>
+
+
+            <div
+                id="partnersContainer"
+                class="scheme-grid partner-results"
+            >
+
+                <div class="empty">
+                    Click the button to search for nearby partners.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="impact photo-section"
+        id="impact"
+        data-photo="{{ url_for('static', filename='images/SocialImpactBackground.jpg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="impact.kicker">06 / SOCIAL IMPACT</label>
+
+                <h2 data-i18n-html="impact.title">
+                    From <span>DISCOVERY</span> To <span>ACCESS</span>
+                </h2>
+
+                <p data-i18n="impact.subtitle">
+                    A simple journey for people looking for suitable
+                    government financial support.
+                </p>
+
+            </div>
+
+
+            <div class="impact-grid">
+
+                <button
+                    class="impact-card"
+                    type="button"
+                    data-target="schemes"
+                >
+
+                    <b>01</b>
+
+                    <h3>
+                        Discover Smarter
+                    </h3>
+
+                    <p>
+                        Access schemes from live government sources instead of relying on
+                        outdated or manually maintained information.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="impact-card"
+                    type="button"
+                    data-target="profile"
+                >
+
+                    <b>02</b>
+
+                    <h3>
+                        AI - Powered Matching
+                    </h3>
+
+                    <p>
+                        Go beyond searching keywords — AI analyzes your profile and ranks
+                        schemes based on your eligibility and requirements.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="impact-card"
+                    type="button"
+                    data-target="calculator"
+                >
+
+                    <b>03</b>
+
+                    <h3>
+                        Know Before You Borrow
+                    </h3>
+
+                    <p>
+                        Turn scheme financial details into clear EMI and repayment estimates
+                        before making a financial decision.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="impact-card"
+                    type="button"
+                    data-target="partners"
+                >
+
+                    <b>04</b>
+
+                    <h3>
+                        From Scheme to Support
+                    </h3>
+
+                    <p>
+                        Find relevant channel partners through location - based routing,
+                        helping users move from discovering a scheme to accessing it.
+                    </p>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section faq-section photo-section"
+        id="faq"
+        data-photo="{{ url_for('static', filename='images/FAQBackground.jpeg') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="faq.kicker">
+                    07 / FREQUENTLY ASKED QUESTIONS
+                </label>
+
+                <h2 data-i18n-html="faq.title">
+                    <span>ANSWERS</span> To Your <span>QUESTIONS</span>
+                </h2>
+
+                <p data-i18n="faq.subtitle">
+                    Quick answers about SAMARTH, government
+                    scheme matching and using the platform.
+                </p>
+
+            </div>
+
+
+            <div class="faq-list">
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q1">
+                        What is SAMARTH?
+                    </summary>
+
+                    <p data-i18n="faq.a1">
+                        SAMARTH is a digital platform that uses
+                        profile-based eligibility checks and AI-assisted
+                        matching to help users discover suitable government
+                        financial support schemes.
+                    </p>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q2">
+                        Where does the scheme information come from?
+                    </summary>
+
+                    <p data-i18n="faq.a2">
+                        The platform fetches scheme information from
+                        configured government sources and validates the extracted information
+                        before making it available for matching.
+                    </p>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q3">
+                        Does a recommendation guarantee approval?
+                    </summary>
+
+                    <p data-i18n="faq.a3">
+                        No. A recommendation indicates that a scheme
+                        appears suitable based on the available information.
+                        Final eligibility, documentation and approval are
+                        determined by the concerned government authority
+                        or channel partner.
+                    </p>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q4">
+                        How does the AI recommendation work?
+                    </summary>
+
+                    <p data-i18n="faq.a4">
+                        The matching engine combines eligibility rules,
+                        financial limits, requirement type, education-related
+                        conditions and text similarity to rank suitable schemes.
+                    </p>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q5">
+                        Can I calculate my expected EMI?
+                    </summary>
+
+                    <p data-i18n="faq.a5">
+                        Yes. Select an available scheme in the Financial
+                        Calculator, enter the loan amount, interest rate
+                        and repayment period, and the platform will estimate
+                        the monthly EMI and total repayment.
+                    </p>
+
+                </details>
+
+
+                <details class="faq-item">
+
+                    <summary data-i18n="faq.q6">
+                        How can I find a channel partner?
+                    </summary>
+
+                    <p data-i18n="faq.a6">
+                        Use the Channel Partners section and allow location
+                        access. The platform can use available partner
+                        coordinates to identify nearby routable partners.
+                    </p>
+
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="section about-section photo-section"
+        id="about"
+        data-photo="{{ url_for('static', filename='images/AboutBackground.png') }}"
+    >
+
+        <div class="container">
+
+            <div class="heading">
+
+                <label data-i18n="about.kicker">
+                    08 / ABOUT US
+                </label>
+
+                <h2 data-i18n-html="about.title">
+                    Meet The <span>TECH TITANS</span>
+                </h2>
+
+                <p data-i18n="about.subtitle">
+                    We are a six-member team building SAMARTH to make
+                    government financial support easier to discover,
+                    understand and access.
+                </p>
+
+            </div>
+
+
+            <div class="team-grid">
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(0)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/GauravImage.jpg') }}"
+                            alt="Team Member 1"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member1.name">
+                            GAURAV DAHIYA
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member1.role">
+                            Lead Developer
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(1)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/BhumikaImage.jpg') }}"
+                            alt="Team Member 2"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member2.name">
+                            BHUMIKA RAJPUT
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member2.role">
+                            Presentation Lead
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(2)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/AabhaasImage.jpg') }}"
+                            alt="Team Member 3"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member3.name">
+                            AABHAAS BHARGAVA
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member3.role">
+                            Demo Coordinator
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(3)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/OmImage.jpg') }}"
+                            alt="Team Member 4"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member4.name">
+                            OM TAPAS
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member4.role">
+                            Integration &amp; Testing Lead
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(4)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/PariImage.jpg') }}"
+                            alt="Team Member 5"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member5.name">
+                            PARI MEHRA
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member5.role">
+                            Data &amp; Research Lead
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="team-card"
+                    type="button"
+                    onclick="openTeamMember(5)"
+                >
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="{{ url_for('static', filename='images/ShivanshImage.jpg') }}"
+                            alt="Team Member 6"
+                        >
+
+                    </div>
+
+                    <div class="team-info">
+
+                        <h3 data-i18n="team.member6.name">
+                            SHIVANSH GARG
+                        </h3>
+
+                        <span class="team-role" data-i18n="team.member6.role">
+                            Project Documentation Lead
+                        </span>
+
+                    </div>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div>
+
+            <a
+                class="brand"
+                href="#"
+                onclick="scrollToTop();return false;"
+            >
+                <span class="brand-mark"><img src="{{ url_for('static', filename='images/BottomLogo.jpeg') }}" alt="SAMARTH"></span>  SAMARTH
+            </a>
+
+            <p>
+                AI - Driven discovery and matching for government
+                financial support.
+            </p>
+
+        </div>
+
+
+        <small>
+            Government scheme information should be verified with
+            the official source before applying.
+        </small>
+
+    </div>
+
+</footer>
+
+
+<div
+    id="schemeModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button
+            id="modalClose"
+            type="button"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+        <div id="modalBody"></div>
+
+    </div>
+
+</div>
+
+
+<div id="toastContainer" class="toasts"></div>
+
+
+<button
+    id="chatbotLauncher"
+    class="chatbot-launcher"
+    type="button"
+    aria-label="Open scheme assistant"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="chatbotPanel"
+    data-i18n-aria-label="bot.launcherLabel"
+>
+    <img
+        class="chatbot-launcher-logo"
+        src="{{ url_for('static', filename='images/AIBottomLogo.jpg') }}"
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+    >
+</button>
+
+<div
+    id="chatbotPanel"
+    class="chatbot-panel hidden"
+    role="dialog"
+    aria-modal="false"
+    aria-label="SAMARTH scheme assistant"
+>
+
+    <div class="chatbot-header">
+
+        <div class="chatbot-header-brand">
+            <img
+                class="chatbot-header-logo"
+                src="{{ url_for('static', filename='images/AITopLogo.jpg') }}"
+                alt="SAMARTH logo"
+                draggable="false"
+            >
+            <span data-i18n="bot.title">SAMARTH Assistant</span>
+        </div>
+
+        <div class="chatbot-header-actions">
+
+            <button
+                id="chatbotRestart"
+                type="button"
+                aria-label="Restart conversation"
+                title="Restart conversation"
+                data-i18n-aria-label="bot.restartLabel"
+                data-i18n-title="Restart Conversation"
+            >↻</button>
+
+            <button
+                id="chatbotMinimize"
+                type="button"
+                aria-label="Minimize assistant"
+                title="Minimize"
+                data-i18n-aria-label="bot.minimizeLabel"
+                data-i18n-title="Minimize Conversation"
+            >−</button>
+
+            <button
+                id="chatbotClose"
+                type="button"
+                aria-label="Close and reset assistant"
+                title="Close"
+                data-i18n-aria-label="bot.closeLabel"
+                data-i18n-title="End Conversation"
+            >&times;</button>
+
+        </div>
+
+    </div>
+
+    <div id="chatbotMessages" class="chatbot-messages" role="log" aria-live="polite"></div>
+
+    <div id="chatbotOptions" class="chatbot-options"></div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
